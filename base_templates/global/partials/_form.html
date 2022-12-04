@@ -1,0 +1,55 @@
+<div class="main-content form-container">
+    {% if form.errors %}
+                <div class="col-12">
+                    <div class="alert alert-danger">
+                        <h4>Os Seguintes Erros Ocorreram:</h4>
+                        {{ form.errors }}
+                    </div>
+                </div>
+    {% endif %}
+
+    {% include 'global/partials/_messages.html' %}
+    <form 
+        class="row g-3 needs-validation" 
+        novalidate action="{{ form_action }}" 
+        method="POST"
+        enctype="multipart/form-data"
+    >
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="
+                {% if field.field.widget.attrs.parentClassName %}
+                    {{ field.field.widget.attrs.parentClassName }}
+                {% else %}
+                    col-md-6
+                {% endif %}"
+            >
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {% comment %} <input type="text" class="form-control" id="validationCustom01" value="{{ form.field.value|default_if_none:"" }}" required> {% endcomment %}                  
+                {{ field }}
+
+            {% if field.help_text %}
+                <div class="help-text">
+                    {{ field.help_text }}
+                </div>  
+            {% endif %}
+
+            {% if field.errors %}
+              <div class="invalid-feedback" style="display: block">
+                  {{ field.errors }}
+              </div>
+            {% endif %}
+
+            </div>
+
+
+            {% if field.name == 'cover' and field.value.url %}
+                <img src="{{ field.value.url }}" alt="Image for {{ recipe.title }}">
+            {% endif %}
+        {% endfor %}
+        
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Confirmar</button>
+        </div>
+    </form>
+</div>

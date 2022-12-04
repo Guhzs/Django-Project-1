@@ -1,0 +1,7 @@
+{% if user.is_authenticated %}
+    <p>
+        You are logged in with {{ request.user.username }}.
+        <a href="{% url 'authors:dashboard' %}">See your recipes</a> or
+        <a href="{% url 'authors:logout_view' %}">click here</a> To Logout
+    </p>
+{% endif %}

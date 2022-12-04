@@ -1,0 +1,43 @@
+{% if recipes.has_other_pages %}
+    <div class="container pagination">
+        <nav aria-label="...">
+            <ul class="pagination pagination-lg pagination-dark color-dark">
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ pagination_range.previous_page }}{{ additional_url_query }}" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% if pagination_range.first_page_out_of_range %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{{ additional_url_query }}">1</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                {% endif %}
+
+                {% for page in pagination_range.pagination %}
+                    <li class="page-item {% if pagination_range.current_page == page %}active{% endif %}">
+                        <a class="page-link" href="?page={{ page }}{{ additional_url_query }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if pagination_range.last_page_out_of_range %}
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link page-item" href="?page={{ pagination_range.total_pages }}{{ additional_url_query }}">{{ pagination_range.total_pages }}</a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ pagination_range.next_page }}{{ additional_url_query }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+{% endif %}
